@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cogneture — Connecting Talent with Technology</title>
+  <meta name="description" content="Cogneture delivers enterprise IT services, technology staffing, and strategic consulting — Connecting Talent with Technology." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230B1B3C'/><text y='.88em' font-size='72' font-family='Arial' font-weight='900' fill='%2338C4E8' x='8'>C</text></svg>" />
+  <style>
+    .logo-img{height:80px;width:auto;display:block;border-radius:6px;}
+    footer .logo-img{height:64px;}
+    @media(max-width:768px){.logo-img{height:60px;}.resp-grid{grid-template-columns:1fr!important;gap:40px!important;}}
+
+    /* ── SLIDER ── */
+    .slider-wrap{position:relative;width:100%;height:100vh;min-height:560px;overflow:hidden;}
+    .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;display:flex;align-items:center;justify-content:center;}
+    .slide.active{opacity:1;z-index:1;}
+    .slide-bg{position:absolute;inset:0;}
+    .slide-content{position:relative;z-index:2;text-align:center;padding:20px 5%;max-width:860px;}
+    .slide-content .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.28);color:white;padding:6px 18px;border-radius:50px;font-size:0.82rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;margin-bottom:26px;}
+    .slide-content h1{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:800;color:white;line-height:1.12;margin-bottom:22px;text-shadow:0 2px 20px rgba(0,0,0,0.3);}
+    .slide-content h1 span{background:linear-gradient(90deg,#38c4e8,#a8edff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .slide-content p{font-size:1.1rem;color:rgba(255,255,255,0.8);max-width:600px;margin:0 auto 38px;font-weight:300;line-height:1.7;}
+    .slide-btns{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
+
+    /* Slide 1 — deep navy tech grid */
+    .slide-1 .slide-bg{background:linear-gradient(135deg,#060e2a 0%,#0d2157 50%,#0a3060 100%);}
+    .slide-1 .slide-bg::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(56,196,232,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(56,196,232,0.07) 1px,transparent 1px);background-size:55px 55px;}
+    .slide-1 .slide-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(26,92,219,0.35) 0%,transparent 70%);}
+
+    /* Slide 2 — dark teal circuit */
+    .slide-2 .slide-bg{background:linear-gradient(135deg,#021a1a 0%,#043a3a 45%,#065050 100%);}
+    .slide-2 .slide-bg::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(56,232,196,0.12) 1px,transparent 1px);background-size:40px 40px;}
+    .slide-2 .slide-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 55% at 50% 50%,rgba(0,160,130,0.3) 0%,transparent 65%);}
+
+    /* Slide 3 — midnight purple data */
+    .slide-3 .slide-bg{background:linear-gradient(135deg,#0c0620 0%,#1a0a40 45%,#2a0a5a 100%);}
+    .slide-3 .slide-bg::after{content:'';position:absolute;inset:0;background-image:linear-gradient(45deg,rgba(160,80,255,0.06) 25%,transparent 25%),linear-gradient(-45deg,rgba(160,80,255,0.06) 25%,transparent 25%);background-size:30px 30px;}
+    .slide-3 .slide-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 75% 60% at 50% 50%,rgba(120,40,220,0.35) 0%,transparent 70%);}
+
+    /* Slide 4 — carbon dark talent */
+    .slide-4 .slide-bg{background:linear-gradient(135deg,#080808 0%,#151515 40%,#1a2530 100%);}
+    .slide-4 .slide-bg::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.02) 0px,rgba(255,255,255,0.02) 1px,transparent 1px,transparent 40px),repeating-linear-gradient(90deg,rgba(255,255,255,0.02) 0px,rgba(255,255,255,0.02) 1px,transparent 1px,transparent 40px);}
+    .slide-4 .slide-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 50% 50%,rgba(26,92,219,0.4) 0%,transparent 65%);}
+
+    /* Slide 5 — navy sunrise */
+    .slide-5 .slide-bg{background:linear-gradient(160deg,#0b1f4b 0%,#1a3a7a 35%,#1a5cdb 65%,#38c4e8 100%);}
+    .slide-5 .slide-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 100% 50% at 50% 100%,rgba(255,255,255,0.06) 0%,transparent 60%);}
+    .slide-5 .slide-bg::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background-image:radial-gradient(circle at 20% 30%,rgba(255,255,255,0.04) 2px,transparent 2px),radial-gradient(circle at 80% 70%,rgba(255,255,255,0.04) 2px,transparent 2px);background-size:60px 60px;}
+
+    /* ── ARROWS ── */
+    .slider-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:1100;width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.35);color:white;font-size:1.6rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.25s;backdrop-filter:blur(8px);line-height:1;user-select:none;}
+    .slider-arrow:hover{background:rgba(26,92,219,0.8);border-color:#1a5cdb;transform:translateY(-50%) scale(1.1);}
+    .slider-arrow.prev{left:28px;}
+    .slider-arrow.next{right:28px;}
+
+    /* ── DOTS ── */
+    .slider-dots{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:10;display:flex;gap:10px;}
+    .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);cursor:pointer;transition:all 0.3s;border:none;}
+    .dot.active{background:white;width:24px;border-radius:4px;}
+
+    /* ── FLOATING SHAPES on slides ── */
+    .shape{position:absolute;border-radius:50%;pointer-events:none;}
+    .shape-1{width:300px;height:300px;top:-80px;right:8%;background:rgba(56,196,232,0.06);border-radius:50%;}
+    .shape-2{width:200px;height:200px;bottom:10%;left:5%;background:rgba(255,255,255,0.03);border-radius:50%;}
+    .shape-3{width:150px;height:150px;top:20%;right:15%;background:rgba(26,92,219,0.1);border-radius:50%;}
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="logo">
+    <img src="images/cogneture-logo-dark-cyan.png" alt="Cogneture" class="logo-img" />
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="pages/about.html">About Us</a>
+    <a href="pages/services.html">Services</a>
+    <a href="pages/solutions.html">Solutions</a>
+    <a href="pages/careers.html">Careers</a>
+    <a href="pages/contact.html" class="nav-cta">Contact Us</a>
+  </div>
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ── HERO SLIDER ── -->
+<div class="slider-wrap">
+
+  <!-- Slide 1: IT Services -->
+  <div class="slide slide-1 active">
+    <div class="slide-bg"></div>
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="slide-content">
+      <div class="badge">⚙️ IT Services</div>
+      <h1>Enterprise Technology<br/>Built for <span>Scale & Speed</span></h1>
+      <p>From cloud migration to cybersecurity, we design and manage the technology infrastructure that keeps your business resilient, secure, and future-ready.</p>
+      <div class="slide-btns">
+        <a href="pages/services.html" class="btn-primary">Explore IT Services ›</a>
+        <a href="pages/contact.html" class="btn-outline">Talk to Us</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 2: Staffing -->
+  <div class="slide slide-2">
+    <div class="slide-bg"></div>
+    <div class="shape shape-1"></div>
+    <div class="shape shape-3"></div>
+    <div class="slide-content">
+      <div class="badge">👥 Staffing Solutions</div>
+      <h1>The Right Talent,<br/>Delivered <span>Fast & Precisely</span></h1>
+      <p>Access a pre-vetted network of elite technology professionals. Contract, contract-to-hire, or direct placement — we fill your roles in days, not months.</p>
+      <div class="slide-btns">
+        <a href="pages/services.html" class="btn-primary">Find Talent ›</a>
+        <a href="pages/contact.html" class="btn-outline">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3: Consulting -->
+  <div class="slide slide-3">
+    <div class="slide-bg"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="slide-content">
+      <div class="badge">💡 Strategic Consulting</div>
+      <h1>Strategy That Gets<br/><span>Implemented, Not Shelved</span></h1>
+      <p>Our consultants are practitioners. From digital transformation to IT governance, every recommendation we make, we can also deliver — end to end.</p>
+      <div class="slide-btns">
+        <a href="pages/services.html" class="btn-primary">Our Consulting ›</a>
+        <a href="pages/contact.html" class="btn-outline">Start a Conversation</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4: Talent + Technology -->
+  <div class="slide slide-4">
+    <div class="slide-bg"></div>
+    <div class="shape shape-1"></div>
+    <div class="slide-content">
+      <div class="badge">🌐 Connecting Talent with Technology</div>
+      <h1>Where the Best Talent<br/>Meets <span>Cutting-Edge Tech</span></h1>
+      <p>Cogneture bridges the gap between exceptional technology professionals and the organizations that need them most. Your growth is our mission.</p>
+      <div class="slide-btns">
+        <a href="pages/about.html" class="btn-primary">Our Story ›</a>
+        <a href="pages/solutions.html" class="btn-outline">Our Solutions</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: Industries -->
+  <div class="slide slide-5">
+    <div class="slide-bg"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="slide-content">
+      <div class="badge">🏆 Industry Expertise</div>
+      <h1>Deep Domain Knowledge<br/>Across <span>7 Industries</span></h1>
+      <p>Healthcare, Finance, Government, Retail, Manufacturing, Telecom, and Energy. We bring proven cross-sector expertise to solve your most complex challenges.</p>
+      <div class="slide-btns">
+        <a href="pages/solutions.html" class="btn-primary">Industry Solutions ›</a>
+        <a href="pages/contact.html" class="btn-outline">Let's Talk</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow controls -->
+  <button class="slider-arrow prev">&#8249;</button>
+  <button class="slider-arrow next">&#8250;</button>
+
+  <!-- Dot indicators -->
+  <div class="slider-dots">
+    <button class="dot active"></button>
+    <button class="dot"></button>
+    <button class="dot"></button>
+    <button class="dot"></button>
+    <button class="dot"></button>
+  </div>
+</div>
+
+<!-- WHAT WE DO -->
+<section class="section">
+  <div class="center reveal">
+    <div class="section-tag">What We Do</div>
+    <h2 class="section-title">Three Pillars of Excellence</h2>
+    <p class="section-sub">End-to-end technology capabilities, unified under one trusted partner.</p>
+  </div>
+  <div class="grid-3">
+    <div class="card reveal">
+      <div class="card-icon">⚙️</div>
+      <h3>IT Services</h3>
+      <p>Cloud, cybersecurity, managed services, and custom software development — built for resilience and scale.</p>
+      <br/><a href="pages/services.html" style="color:var(--blue);font-weight:600;font-size:0.9rem;">Learn More →</a>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon">👥</div>
+      <h3>Staffing Solutions</h3>
+      <p>Contract, contract-to-hire, and direct placement of elite technology professionals — fast and precise.</p>
+      <br/><a href="pages/services.html" style="color:var(--blue);font-weight:600;font-size:0.9rem;">Learn More →</a>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon">💡</div>
+      <h3>Consulting</h3>
+      <p>Digital transformation, IT strategy, and enterprise architecture consulting to unlock your full potential.</p>
+      <br/><a href="pages/services.html" style="color:var(--blue);font-weight:600;font-size:0.9rem;">Learn More →</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section section-alt">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;" class="resp-grid">
+    <div class="reveal">
+      <div class="section-tag">Why Cogneture</div>
+      <h2 class="section-title">Built Different.<br/>Built for You.</h2>
+      <p style="color:#64748B;margin-bottom:30px;font-weight:300;">We combine deep technical expertise with a client-first culture to deliver outcomes — not just outputs. Our teams are embedded, accountable, and invested in your success.</p>
+      <ul style="display:flex;flex-direction:column;gap:14px;">
+        <li style="display:flex;align-items:flex-start;gap:12px;font-size:0.93rem;color:#475569;">
+          <span style="background:var(--blue);color:white;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.7rem;margin-top:2px;">✓</span>
+          Dedicated client success managers on every engagement
+        </li>
+        <li style="display:flex;align-items:flex-start;gap:12px;font-size:0.93rem;color:#475569;">
+          <span style="background:var(--blue);color:white;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.7rem;margin-top:2px;">✓</span>
+          12+ years average experience across all practice areas
+        </li>
+        <li style="display:flex;align-items:flex-start;gap:12px;font-size:0.93rem;color:#475569;">
+          <span style="background:var(--blue);color:white;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.7rem;margin-top:2px;">✓</span>
+          Flexible engagement models tailored to budget &amp; timeline
+        </li>
+        <li style="display:flex;align-items:flex-start;gap:12px;font-size:0.93rem;color:#475569;">
+          <span style="background:var(--blue);color:white;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.7rem;margin-top:2px;">✓</span>
+          Cross-industry experience: Healthcare, Finance, Government &amp; more
+        </li>
+      </ul>
+      <br/><a href="pages/about.html" class="btn-primary" style="display:inline-flex;margin-top:10px;">Our Story →</a>
+    </div>
+    <div class="reveal" style="display:flex;flex-direction:column;gap:16px;">
+      <div style="background:var(--navy);border-radius:16px;padding:32px;color:white;">
+        <div style="font-size:1.6rem;margin-bottom:10px;">🎯</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:8px;">Client-First Philosophy</div>
+        <div style="font-size:0.88rem;color:rgba(255,255,255,0.6);">Every solution is tailored to your unique business context, goals, and constraints.</div>
+      </div>
+      <div style="background:var(--blue);border-radius:16px;padding:32px;color:white;">
+        <div style="font-size:1.6rem;margin-bottom:10px;">⚡</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:8px;">End-to-End Capability</div>
+        <div style="font-size:0.88rem;color:rgba(255,255,255,0.75);">IT delivery, staffing, and consulting under one roof for seamless project continuity.</div>
+      </div>
+      <div style="background:var(--dark);border:1px solid var(--border);border-radius:16px;padding:32px;color:white;">
+        <div style="font-size:1.6rem;margin-bottom:10px;">🌍</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:8px;">Global Talent Network</div>
+        <div style="font-size:0.88rem;color:rgba(255,255,255,0.6);">Access to a pre-vetted pool of elite technology professionals across all disciplines.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="section section-dark">
+  <div class="center reveal">
+    <div class="section-tag" style="color:var(--cyan);">Industries</div>
+    <h2 class="section-title light">Sectors We Serve</h2>
+    <p class="section-sub light">Deep domain expertise across the industries that drive the global economy.</p>
+  </div>
+  <div class="grid-4">
+    <div class="card-dark reveal" style="text-align:center;padding:24px;"><div style="font-size:2rem;margin-bottom:12px;">🏥</div><div style="font-family:'Syne',sans-serif;font-weight:700;color:white;font-size:0.95rem;">Healthcare</div></div>
+    <div class="card-dark reveal" style="text-align:center;padding:24px;"><div style="font-size:2rem;margin-bottom:12px;">🏦</div><div style="font-family:'Syne',sans-serif;font-weight:700;color:white;font-size:0.95rem;">Banking &amp; Finance</div></div>
+    <div class="card-dark reveal" style="text-align:center;padding:24px;"><div style="font-size:2rem;margin-bottom:12px;">🏛️</div><div style="font-family:'Syne',sans-serif;font-weight:700;color:white;font-size:0.95rem;">Government</div></div>
+    <div class="card-dark reveal" style="text-align:center;padding:24px;"><div style="font-size:2rem;margin-bottom:12px;">🛒</div><div style="font-family:'Syne',sans-serif;font-weight:700;color:white;font-size:0.95rem;">Retail &amp; E-Commerce</div></div>
+    <div class="card-dark reveal" style="text-align:center;padding:24px;"><div style="font-size:2rem;margin-bottom:12px;">🏭</div><div style="font-family:'Syne',sans-serif;font-weight:700;color:white;font-size:0.95rem;">Manufacturing</div></div>
+    <div class="card-dark reveal" style="text-align:center;padding:24px;"><div style="font-size:2rem;margin-bottom:12px;">📡</div><div style="font-family:'Syne',sans-serif;font-weight:700;color:white;font-size:0.95rem;">Telecom &amp; Media</div></div>
+    <div class="card-dark reveal" style="text-align:center;padding:24px;"><div style="font-size:2rem;margin-bottom:12px;">⚡</div><div style="font-family:'Syne',sans-serif;font-weight:700;color:white;font-size:0.95rem;">Energy &amp; Utilities</div></div>
+    <div class="card-dark reveal" style="text-align:center;padding:24px;"><div style="font-size:2rem;margin-bottom:12px;">✈️</div><div style="font-family:'Syne',sans-serif;font-weight:700;color:white;font-size:0.95rem;">Logistics &amp; Transport</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="background:var(--grad);text-align:center;">
+  <div class="reveal">
+    <h2 style="font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);color:white;font-weight:800;margin-bottom:16px;">Ready to Accelerate Your Digital Journey?</h2>
+    <p style="color:rgba(255,255,255,0.7);max-width:480px;margin:0 auto 36px;font-weight:300;">Let's discuss how Cogneture can help you build, scale, and innovate.</p>
+    <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+      <a href="pages/contact.html" style="background:white;color:var(--blue);padding:14px 36px;border-radius:12px;font-weight:700;font-family:'Syne',sans-serif;transition:all 0.2s;display:inline-block;">Start a Conversation</a>
+      <a href="pages/careers.html" style="background:transparent;color:white;padding:14px 36px;border-radius:12px;font-weight:600;border:1.5px solid rgba(255,255,255,0.4);transition:all 0.2s;display:inline-block;">Join Our Team</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <img src="images/cogneture-logo-dark-cyan.png" alt="Cogneture" class="logo-img" />
+      </a>
+      <p>Connecting Talent with Technology. Your trusted partner for IT services, technology staffing, and strategic consulting.</p>
+    </div>
+    <div class="footer-col"><h4>Company</h4><a href="pages/about.html">About Us</a><a href="pages/careers.html">Careers</a><a href="pages/contact.html">Contact</a></div>
+    <div class="footer-col"><h4>Services</h4><a href="pages/services.html">IT Services</a><a href="pages/services.html">Staffing</a><a href="pages/services.html">Consulting</a><a href="pages/solutions.html">Solutions</a></div>
+    <div class="footer-col"><h4>Contact</h4><a href="mailto:info@cogneture.com">info@cogneture.com</a><a href="#">000-000-0000</a><a href="#">Austin, TX</a></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Cogneture. All rights reserved.</span>
+    <div class="social-links"><a href="#" title="LinkedIn">in</a><a href="#" title="Twitter">𝕏</a><a href="#" title="GitHub">⌥</a></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  (function() {
+    var current = 0;
+    var slides = document.querySelectorAll('.slide');
+    var dots   = document.querySelectorAll('.dot');
+    var total  = slides.length;
+    var timer;
+
+    function goSlide(n) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = ((n % total) + total) % total;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+    }
+
+    function moveSlide(dir) {
+      clearInterval(timer);
+      goSlide(current + dir);
+      timer = setInterval(function(){ goSlide(current + 1); }, 5500);
+    }
+
+    // Attach arrow buttons
+    document.querySelector('.slider-arrow.prev').addEventListener('click', function(e){
+      e.preventDefault(); moveSlide(-1);
+    });
+    document.querySelector('.slider-arrow.next').addEventListener('click', function(e){
+      e.preventDefault(); moveSlide(1);
+    });
+
+    // Attach dots
+    dots.forEach(function(dot, i){
+      dot.addEventListener('click', function(e){
+        e.preventDefault();
+        clearInterval(timer);
+        goSlide(i);
+        timer = setInterval(function(){ goSlide(current + 1); }, 5500);
+      });
+    });
+
+    // Keyboard
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowLeft')  moveSlide(-1);
+      if (e.key === 'ArrowRight') moveSlide(1);
+    });
+
+    // Touch/swipe
+    var touchX = 0;
+    var wrap = document.querySelector('.slider-wrap');
+    wrap.addEventListener('touchstart', function(e){ touchX = e.touches[0].clientX; }, {passive:true});
+    wrap.addEventListener('touchend', function(e){
+      var diff = touchX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) moveSlide(diff > 0 ? 1 : -1);
+    });
+
+    // Auto-play
+    timer = setInterval(function(){ goSlide(current + 1); }, 5500);
+  })();
+</script>
+</body>
+</html>

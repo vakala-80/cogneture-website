@@ -1,19 +1,1 @@
 permalink: pretty
-```
-4. Click **"Commit changes"**
-
-This makes URLs change from:
-- ❌ `cogneture.com/pages/about.html`
-- ✅ `cogneture.com/pages/about`
-
----
-
-**Option 2 — Cleaner URL Structure**
-
-Reorganize files so each page becomes a folder:
-```
-pages/
-  about/
-    index.html    → cogneture.com/about
-  services/
-    index.html    → cogneture.com/services
